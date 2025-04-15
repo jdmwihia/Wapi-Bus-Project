@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bus Route Map (Leaflet)</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 10px;
+    }
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Bus Route Map (Free with Leaflet)</h2>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Center the map on JKUAT (adjust to your area)
+    const map = L.map('map').setView([-1.0932, 37.0157], 13);
+
+    // Use free OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example stop coordinates (you can update these later)
+    const stops = [
+      [-1.0932, 37.0157],  // JKUAT Main Gate
+      [-1.0820, 37.0385],  // Stop 1
+      [-1.0650, 37.0500],  // Stop 2
+      [-1.0500, 37.0600]   // Final Stop
+    ];
+
+    // Add markers and labels
+    stops.forEach((coords, i) => {
+      L.marker(coords).addTo(map)
+        .bindPopup(`Stop ${i + 1}`);
+    });
+
+    // Draw polyline for the route
+    const route = L.polyline(stops, {color: 'blue'}).addTo(map);
+    map.fitBounds(route.getBounds());
+  </script>
+</body>
+</html>

@@ -17,3 +17,6 @@ def book_seat(request, seat_id):
         seat.booked_by = request.user
         seat.save()
     return redirect('seat_list')
+
+def route_map(request):
+    return render(request, 'bookings/route_map.html')
